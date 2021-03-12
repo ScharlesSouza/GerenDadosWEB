@@ -1,0 +1,43 @@
+<html>
+    <head></head>
+    <title>LIVRARIA</title>
+
+    <body>
+        <p id="demo"></p>
+        <script src="dados.js"></script>
+        <script>
+            var x,  i, parser, xmlDoc;
+            var txt="";
+
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(text, "text/xml");
+            
+            x= xmlDoc.documentElement.childNodes;
+           
+            //um laço para percorrer os books (livros)
+            for(i=0;i<x.length; i++){
+
+                //imprimo o nome da TAG
+                txt += "<br>"+ x[i].nodeName +"<br>";
+                
+                //desço na arvore para os nós filhos do Book, onde encontra-se as informações do livro
+                var filho = x[i].firstChild;
+                
+                //faço um laço para percorrer todos os nos filhos de "book" a partir do primeiro ate chegar no fim "null"
+                while(filho != null){
+                    txt+=    filho.nodeName +": "+ filho.childNodes[0].nodeValue +"<br>";
+                    //pulo do nó atual para o proximo vizinho
+                    filho = filho.nextSibling;
+                }
+                 
+            }
+
+            document.getElementById("demo").innerHTML = txt;
+
+            //alert(x.nodeName);
+
+        </script>
+
+    </body>
+
+</html>
